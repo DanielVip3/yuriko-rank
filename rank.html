@@ -1,0 +1,346 @@
+<!--
+Author: DanielVip3#6167
+- è open-source, ma se possibile date i crediti al dev ufficiale <3
+Si ringrazia Surreal#8679 per il design del layout
+
+------------------------- INTRODUZIONE
+
+Questo è il codice della targhetta del rank di Yuriko.
+In questo codice vengono injectate, da Yuriko, diverse variabili, che indicano lo username dell'utente, il discriminator, il livello, l'xp attuale e quella da raggiungere, il rank, il nome del ruolo ed il colore del ruolo, l'avatar, lo status, lo sfondo personalizzato ed il codice HTML personalizzato.
+Durante tutto il codice, ci saranno vari commenti che indicano dove e come Yuriko importa quali variabili.
+
+È possibile injectare HTML dai comandi usando il comando !html_rank [codice].
+L'HTML injectato viene inserito alla fine di tutto, sotto il body, e si possono utilizzare tutti i tag HTML, incluso <style> e <script>.
+-->
+
+<html>
+   <head>
+      <style>
+      /* Importa i fonts */
+     
+         @font-face {
+           font-family: "Nexa Bold";
+           src: url("https://db.onlinewebfonts.com/t/c9f309b3d47969ecac64a77a6c672594.eot");
+           src: url("https://db.onlinewebfonts.com/t/c9f309b3d47969ecac64a77a6c672594.eot?#iefix") format("embedded-opentype"), url("https://db.onlinewebfonts.com/t/c9f309b3d47969ecac64a77a6c672594.woff2") format("woff2"), url("https://db.onlinewebfonts.com/t/c9f309b3d47969ecac64a77a6c672594.woff") format("woff"), url("https://db.onlinewebfonts.com/t/c9f309b3d47969ecac64a77a6c672594.ttf") format("truetype"), url("https://db.onlinewebfonts.com/t/c9f309b3d47969ecac64a77a6c672594.svg#Nexa Bold") format("svg");
+         }
+         
+         @font-face {
+           font-family: "Nexa Light";
+           src: url("https://db.onlinewebfonts.com/t/12108809f49c49bcdc126dcecc938761.eot");
+           src: url("https://db.onlinewebfonts.com/t/12108809f49c49bcdc126dcecc938761.eot?#iefix") format("embedded-opentype"), url("https://db.onlinewebfonts.com/t/12108809f49c49bcdc126dcecc938761.woff2") format("woff2"), url("https://db.onlinewebfonts.com/t/12108809f49c49bcdc126dcecc938761.woff") format("woff"), url("https://db.onlinewebfonts.com/t/12108809f49c49bcdc126dcecc938761.ttf") format("truetype"), url("https://db.onlinewebfonts.com/t/12108809f49c49bcdc126dcecc938761.svg#Nexa Light") format("svg");
+         }
+         
+         body {
+           background-color: #36393E;
+           padding: 0;
+           margin: 0;
+         }
+         
+         #text-width-measurer {
+           width: min-content;
+         }
+         
+         #background {
+           width: 615px;
+           height: 175px;
+           background-image: url("https://i.imgur.com/pGderdP.png"); /* questo viene modificato dal bot quando modifichi lo sfondo col comando*/
+           background-repeat: no-repeat;
+           background-size: fill;
+           background-position: center;
+           position: relative;
+           display: -webkit-box;
+           display: -webkit-flex;
+           display: -ms-flexbox;
+           display: flex;
+           -webkit-align-items: center;
+           align-items: center;
+           -webkit-justify-content: center;
+           justify-content: center;
+         }
+         
+         #card {
+           position: absolute;
+           left: 134px;
+           top: 3px;
+           border: 2px solid black;
+           width: 475px;
+           height: 165px;
+           background-color: rgba(22, 95, 167, 0.4);
+         }
+         
+         #avatar {
+           position: fixed;
+           top: 17px;
+           left: 80px;
+           border: 1px double #14121E;
+           border-radius: 50%;
+           width: 140px;
+         }
+         
+         #status {
+           position: fixed;
+           top: 125px;
+           left: 185px;
+           background-color: #747F8D; /* è il colore del pallino dello status, il bot lo modifica in base al tuo status (online, offline ecc.) */
+           width: 30px;
+           height: 30px;
+           border-radius: 50%;
+           -webkit-box-shadow: inset 0 0 0 2px rgba(199,204,209,.6);
+           box-shadow: inset 0 0 0 2px rgba(199,204,209,.6);
+         }
+         
+         #badges {
+           position: fixed;
+           top: 20px;
+           left: 245px;
+           width: 100px;
+         }
+         
+         #nitro-badge {
+           /* display: none; viene aggiunto se l'utente non ha il badge di booster */
+           width: 35%;
+         }
+         
+         #booster-badge {
+           /* display: none; viene aggiunto se l'utente non ha il badge di booster */
+           width: 13%;
+         }
+         
+         #user-wrapper {
+           position: fixed;
+           top: 45px;
+           left: 245px;
+           text-align: left;
+           color: white;
+           font-family: "Nexa Bold", sans-serif;
+           font-size: 30px;
+           max-width: 250px;
+           display: -webkit-box;
+           display: -webkit-flex;
+           display: -ms-flexbox;
+           display: flex;
+           -webkit-justify-content: flex-start;
+           justify-content: flex-start;
+           -webkit-flex-wrap: nowrap;
+           flex-wrap: nowrap;
+         }
+         
+         #username {
+           display: inline;
+           max-width: 220px;
+           white-space: nowrap;
+           overflow: hidden;
+           text-overflow: ellipsis;
+         }
+         
+         #discriminator {
+           margin-top: 5px;
+           text-align: center;
+           color: white;
+           font-family: "Nexa Light", sans-serif;
+           font-size: 13px;
+         }         
+         
+         #level {
+           position: fixed;
+           top: -5px;
+           left: 500px;
+           color: white;
+           font-family: "Nexa Bold", sans-serif;
+           font-size: 20px;
+         }
+         
+         #level-number {
+           position: fixed;
+           top: 37px;
+           left: 487px;
+           text-align: right;
+           color: #F78181; /* questo colore è il colore del ruolo del tuo livello */
+           font-family: "Nexa Light", sans-serif;
+           font-size: 40px;
+           width: 100px;
+           white-space: nowrap;
+           overflow-x: hidden;
+           overflow-y: visible;
+         }
+         
+         #xp-bar {
+           display: -webkit-box;
+           display: -webkit-flex;
+           display: -ms-flexbox;
+           display: flex;
+           -webkit-align-items: center;
+           align-items: center;
+           position: fixed;
+           top: 85px;
+           left: 235px;
+           background-color: white;
+           width: 345px;
+           height: 33px;
+           border-radius: 30px;
+           border: outset 1px black;
+           padding: 1px;
+         }
+         
+        #xp-number {
+           position: absolute;
+           text-align: center;
+           color: black;
+           font-family: 'Nexa Light', sans-serif;
+           font-size: 12px;
+           font-weight: 800;
+           width: 100%;
+           height: 100%;
+           z-index: 100;
+           display: table;
+         }
+         
+         #xp-number-inner {
+           display: table-cell;
+           vertical-align: middle;
+         }
+         
+         #xp-char {
+           font-family: "Nexa Bold", sans-serif;
+         }
+         
+         #xp-percentage {
+           top: 0;
+           display: -webkit-box;
+           display: -webkit-flex;
+           display: -ms-flexbox;
+           display: flex;
+           -webkit-align-items: center;
+           align-items: center;
+           -webkit-justify-content: center;
+           justify-content: center;
+           background-color: #F78181;  /* questo colore è il colore del ruolo del tuo livello */
+           width: unset;
+           height: 99%;
+           border-radius: 30px 5px 5px 30px;
+           z-index: 99;
+         }
+         
+         #role {
+           position: fixed;
+           top: 112px;
+           left: 235px;
+           text-align: center;
+           color: #F78181; /* questo colore è il colore del ruolo del tuo livello */
+           font-family: "Nexa Bold", sans-serif;
+           font-size: 25px;
+           width: 180px;
+         }
+         
+         #divider {
+           position: fixed;
+           top: 133px;
+           left: 420px;
+           width: 1px;
+           height: 30px;
+           background-color: #14121E;
+         }
+         
+         #rank {
+           width: 230px;
+           position: fixed;
+           top: 125px;
+           left: 468px;
+           color: white;
+           font-family: "Nexa Bold", sans-serif;
+           font-size: 15px;
+         }
+         
+         #rank-number {
+           position: absolute;
+           top: -5px;
+           left: 50px;
+           font-family: "Nexa Light", sans-serif;
+           font-size: 25px;
+           color: #F78181; /* questo colore è il colore del ruolo del tuo livello */
+           width: 120px;
+           white-space: nowrap;
+           overflow-x: hidden;
+           overflow-y: visible;
+         }
+      </style>
+   </head>
+   <body>
+      <div id="text-width-measurer"></div>
+      <div id="background">
+        <div id="card">
+          <img id="avatar" src="https://i.imgur.com/3SFPnrk.png" /> 
+          <div id="status"></div>
+          <div id="badges">
+            <img id="nitro-badge" src="https://i.imgur.com/M6vOeoF.png" />
+            <img id="booster-badge" src="https://i.imgur.com/OO36hnZ.png" />
+          </div>
+          <div id="user-wrapper">
+            <div id="username">DanielVip3</div> <!-- lo username dell'utente (non il nickname modificabile) -->
+            <span id="discriminator">#6167</span> <!-- il discriminator dell'utente (il codice identificativo univoco di Discord) -->
+          </div>
+          <p id="level">LIVELLO&nbsp;</p>
+          <span id="level-number">0</span> <!-- il livello dell'utente -->
+          <div id="xp-bar">
+            <div id="xp-number">
+                <div id="xp-number-inner"><span id="xp-char">EXP:</span> 35 / 100&nbsp;</div> <!-- prima l'XP attuale dell'utente e poi l'XP da raggiungere per il prossimo livello -->
+            </div>
+            <div id="xp-percentage"></div>
+          </div>
+          <p id="role">Kohai</p> <!-- il nome del ruolo in base al livello dell'utente -->
+          <div id="divider"></div>
+          <p id="rank">RANK&nbsp;<span id="rank-number"># 100</span></p> <!-- il rank dell'utente in classifica -->
+        </div>
+      </div>
+      <script>
+         /* ATTENZIONE! */
+         /* NON USARE "LET" O "CONST" NEL JAVASCRIPT O LE FLEXBOX SENZA I PREFISSI -WEBKIT PERCHE' IL BOT NON LI SUPPORTA */
+         /* ATTENZIONE! */
+      
+         /*---------------------*/
+         /* DIMENSIONI USERNAME */
+         /*---------------------*/
+         
+         function getTextWidth(fontSize, fontFamily, text) {
+           var test = document.getElementById("text-width-measurer");
+           test.innerText = text;
+           test.style.fontSize = fontSize;
+           test.style.fontFamily = fontFamily;
+           var width = (test.clientWidth + 1);
+           return width;
+         }
+         
+         /* Siccome l'username ha vari problemi di positioning e di display, e lunghezza, mi tocca fare questi check e modifiche allo style */
+         var usernameWidth = getTextWidth('30px', "Nexa Bold", document.getElementById("username").innerText);
+         
+         if (usernameWidth >= 200) {
+           document.getElementById('username').style.display = 'block';
+           document.getElementById('discriminator').style.marginLeft = '-3px';
+         }
+         
+         document.getElementById('text-width-measurer').style.display = 'none';
+         
+         /*-------------*/
+         /* PERCENTUALE */
+         /*-------------*/
+         
+         var xpPercentage = 35; /* questa percentuale viene modificata dinamicamente dal bot in base a quanta xp hai rispetto al totale*/
+         
+         // Se la percentuale è minore di 3%, la fa apparire come 3%
+         if (xpPercentage <= 2) xpPercentage = 3;
+         
+         /* Tutte le percentuali al di sotto del 4% hanno un altro tipo di border-radius, perché altrimenti si buggherebbe visivamente */
+         document.getElementById("xp-percentage").style.width = xpPercentage+'%';
+         if (xpPercentage <= 4) {
+             document.getElementById("xp-percentage").style.borderRadius = "50%";
+         }
+         
+         if (xpPercentage >= 98) {
+             document.getElementById("xp-percentage").style.borderRadius = "50px";
+         }
+      </script>
+      
+      <!-- Qui viene inserito l'HTML personalizzato dal bot -->
+      
+   </body>
+</html>
