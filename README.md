@@ -14,7 +14,7 @@ In questo codice vengono injectate, da Yuriko, diverse variabili, che indicano l
 Durante tutto il codice, ci saranno vari commenti che indicano dove e come Yuriko importa quali variabili.
 
 È possibile injectare HTML dai comandi usando il comando `!html_rank [codice]`.
-L'HTML injectato viene inserito alla fine di tutto, sotto il body, e si possono utilizzare tutti i tag HTML, incluso `<style>` e `<script>`.
+L'HTML injectato viene inserito alla fine del markup, sotto il body, e si possono utilizzare tutti i tag HTML, incluso `<style>` e `<script>`.
 
 
 ## CONTRIBUTORI
