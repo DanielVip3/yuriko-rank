@@ -1,6 +1,8 @@
 # Targhetta rank del bot Yuriko
 
 
+
+
 ## LINK UTILI
 * [Il codice su CodePen](https://codepen.io/DanielVip3/pen/qBEevMZ](https://codepen.io/DanielVip3/pen/qBEevMZ))
 * [L'elenco e grafico dei livelli ed XP di Yuriko generati da uno script basato su un'equazione](https://docs.google.com/spreadsheets/d/1wIFcEvJ2j4CO_Bze7CfnsdhgDb4wcSAC_pDmwymlDfU/edit?usp=sharing)
